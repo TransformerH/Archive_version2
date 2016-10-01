@@ -1,0 +1,43 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - CBTableViewDataSource (1.1.0)
+  - Masonry (1.0.1)
+  - MJExtension (3.0.13)
+  - RBStoryboardLink (0.1.4)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.1.0)
+  - CBTableViewDataSource
+  - Masonry (~> 1.0.1)
+  - MJExtension
+  - RBStoryboardLink (~> 0.1)
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  CBTableViewDataSource: b3af29c138d3b594eb577be2bdd996685121c5c8
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  RBStoryboardLink: 0faae84aea6a5e8716c4469984d847d958c3fcb3
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: dac52782c7b11417f99248a7d8043230fce34654
+
+COCOAPODS: 1.0.1
