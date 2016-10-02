@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '34F2B2E7CF3BC93D3D74C2CA9BB6F246'
+               BlueprintIdentifier = '8638A059014477F5882DD59BDDCA0314'
                BlueprintName = 'CBTableViewDataSource'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'CBTableViewDataSource.framework'>
+               BuildableName = 'libCBTableViewDataSource.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

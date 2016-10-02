@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-//#import <AVOSCloud/AVOSCloud.h>
-//#import <CDChatManager.h>
+#import <AVOSCloud/AVOSCloud.h>
+#import <CDChatManager.h>
 #import "UserFactory.h"
 
 @interface AppDelegate ()
@@ -19,15 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    // Override point for customization after application launch.
-//    [AVOSCloud setApplicationId:@"KX3LSDk7hVvMzEpS84FOtNO6-gzGzoHsz" clientKey:@"58fcJOc6EqJPkDovga3trRcx"];
-//    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-//    
-//    
-//    [CDChatManager manager].userDelegate = [[UserFactory alloc]init];
-//#ifdef DEBUG
-//    [AVOSCloud setAllLogsEnabled:YES];
-//#endif
+  [AVOSCloud setApplicationId:@"KX3LSDk7hVvMzEpS84FOtNO6-gzGzoHsz" clientKey:@"58fcJOc6EqJPkDovga3trRcx"];
     
     
     return YES;

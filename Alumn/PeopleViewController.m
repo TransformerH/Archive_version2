@@ -389,9 +389,33 @@ static BOOL isShow = NO;
         
         NSLog(@"获得的具体的人脉详情 %@",dict);
         
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *plistPath1= [paths objectAtIndex:0];
+        
+        NSLog(@"%@",plistPath1);
+        //得到完整的路径名
+        NSString *fileName = [plistPath1 stringByAppendingPathComponent:@"personalDetailInfoSecond.plist"];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
+            
+            [[dict valueForKey:@"Data"] writeToFile:fileName atomically:YES];
+            NSLog(@"personalDetailInfoSecond.plist文件写入完成");
+        }
+
+        
         [self.meInfoVM setIfFollowed:[[[dict valueForKey:@"Data"] valueForKey:@"response"]valueForKey:@"has_followed"]];
         
+        
+        
         [self.meInfoVM setInfo:self.content[indexPath.row]];
+        NSString *fileName2 = [plistPath1 stringByAppendingPathComponent:@"personalDetailInfoFirst.plist"];
+        NSFileManager *fm2 = [NSFileManager defaultManager];
+        if ([fm2 createFileAtPath:fileName2 contents:nil attributes:nil] ==YES) {
+            
+            [self.content[indexPath.row]  writeToFile:fileName2 atomically:YES];
+            NSLog(@"personalDetailInfoFirst.plist文件写入完成");
+        }
+
         
         MeInfoViewController *meInfoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"meInfo"];
         [self.navigationController pushViewController:meInfoVC animated:YES];

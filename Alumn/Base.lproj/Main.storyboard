@@ -886,7 +886,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y8A-KX-q7M" id="eiJ-FK-DCX">
-                                            <frame key="frameInset" width="320" height="43.5"/>
+                                            <frame key="frameInset" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1309,7 +1309,7 @@
         <!--People View Controller-->
         <scene sceneID="Kda-wa-EhD">
             <objects>
-                <viewController id="egI-aa-3EZ" customClass="PeopleViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="peopleVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="egI-aa-3EZ" customClass="PeopleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ErB-Dj-eRF"/>
                         <viewControllerLayoutGuide type="bottom" id="ARq-lF-fDh"/>
