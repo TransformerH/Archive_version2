@@ -13,6 +13,8 @@
 
 @property (strong,nonatomic) TextFieldSender *sender;
 
+@property (strong,nonatomic)NSArray *currentArray;
+
 @end
 
 @implementation PlacepickerTextField{
@@ -66,26 +68,24 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     
-    return [[self currentPlaceArray] count];
+    return self.currentArray.count;
 }
 
 - (NSArray*)currentPlaceArray{
     
     //#####################################  更改返回的数组
-    NSString *type = [self.sender getPlaceTextFieldType];
-    
-    if([type isEqualToString:@"country"]){
+    if(self.tag == 51){
         return countryArray;
-    }else if([type isEqualToString:@"state"]){
+    }else if(self.tag == 52){
         NSLog(@"countryNum %ld(long)",(long)[self.sender getCountryIndex]);
         return [stateArray objectAtIndex:[self.sender getCountryIndex]];
-    }else{
+    }else if(self.tag == 53){
         NSLog(@"city:%ld",(long)[self.sender getStateIndex]);
         
         NSInteger cityNum = 0;
         for(int i = 0;i < [self.sender getCountryIndex];i++){
-            int state = [[stateArray objectAtIndex:i] count];
-            NSLog([[NSString alloc] initWithFormat:@"stateNum:%d - %d",i,state]);
+            NSInteger state = [[stateArray objectAtIndex:i] count];
+            NSLog(@"stateNum:%d - %@",i,[NSNumber numberWithInteger:state]);
             if(state == 0){
                 cityNum += 0;
             }else{
@@ -95,12 +95,13 @@
         
         cityNum = cityNum + [self.sender getStateIndex];
         
-        NSLog([NSString stringWithFormat:@"cityResult %d",cityNum]);
+        NSLog(@"cityResult %@",[NSNumber numberWithInteger:cityNum]);
         
         return [cityArray objectAtIndex:cityNum];
         
     }
-
+    
+    return nil;
     
 }
 
@@ -108,35 +109,38 @@
     //####################################  更改返回的选中行
     NSString *type = [self.sender getPlaceTextFieldType];
     
-    if([type isEqualToString:@"country"]){
+    if(self.tag == 51){
         NSLog(@"set countryIndex :%ld(long)",(long)row);
         [self.sender setCountryIndex:row];
-    }else if([type isEqualToString:@"state"]){
+    }else if(self.tag == 52){
         NSLog(@"pickerView setStateIndex: %ld(long)",(long)row);
         if(row == -1){
             row = 0;
         }
         [self.sender setStateIndex:row];
-    }else{
+    }else if(self.tag == 53){
         [self.sender setCityIndex:row];
     }
     
 
-    return [[self currentPlaceArray] objectAtIndex:row];
+    return [self.currentArray objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    self.text = [[self currentPlaceArray] objectAtIndex:row];
+    self.text = [self.currentArray objectAtIndex:row];
 }
 
 #pragma mark - inputAccessoryView with toolbar
 - (BOOL)canBecomeFirstResponder{
+    self.currentArray = [[NSArray alloc] init];
+    self.currentArray = [self currentPlaceArray];
+    
     return YES;
 }
 
 - (void)done:(id)sender{
     
-    if([[self.sender getPlaceTextFieldType] isEqualToString:@"city"]){
+    if(self.tag == 53){
         [self.sender clear];
     }
     

@@ -20,6 +20,7 @@
 #import "MeViewModel.h"
 #import "AFNetManager.h"
 #import   "UIImageView+WebCache.h"
+#import "SettingViewController.h"
 
 
 @interface MyMainViewController ()<UIScrollViewDelegate,UITableViewDelegate>
@@ -106,6 +107,13 @@
     [self.bottomScrollView addSubview:self.headScrollView];
     [self.bottomScrollView addSubview:self.headMenuScrollView];
     [self.bottomScrollView addSubview:self.contentScrollView];
+    
+    //setButton
+    UIButton *setButton = [[UIButton alloc] init];
+    setButton.frame = CGRectMake((_headScrollView.bounds.size.width - 45), 35, 24, 24);
+    [setButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"setBtn"] scaleToSize:setButton.bounds.size] forState:UIControlStateNormal];
+    [setButton addTarget:self action:@selector(settingVC:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:setButton];
 }
 - (UIScrollView *)bottomScrollView
 {
@@ -149,20 +157,34 @@
         chooseBtn.frame = CGRectMake((userHead.frame.origin.x + userHead.frame.size.width / 2), (userHead.frame.origin.y + userHead.frame.size.height * 0.5), 60, 60);
         [chooseBtn setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"photoImg"] scaleToSize:chooseBtn.frame.size] forState:UIControlStateNormal];
         
-        //setButton
-        UIButton *setButton = [[UIButton alloc] init];
-        setButton.frame = CGRectMake((_headScrollView.bounds.size.width - 45), 35, 24, 24);
-        [setButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"setBtn"] scaleToSize:setButton.bounds.size] forState:UIControlStateNormal];
+//        //setButton
+//        UIButton *setButton = [[UIButton alloc] init];
+//        setButton.frame = CGRectMake((_headScrollView.bounds.size.width - 45), 35, 24, 24);
+//        [setButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"setBtn"] scaleToSize:setButton.bounds.size] forState:UIControlStateNormal];
+//        [setButton addTarget:self action:@selector(settingVC:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         [backImgView addSubview:userImg];
         [backImgView addSubview:userHead];
         [backImgView addSubview:chooseBtn];
-        [backImgView addSubview:setButton];
+     //   [backImgView addSubview:setButton];
         
         
         [self.headScrollView addSubview:backImgView];
         
     }
     return _headScrollView;
+}
+
+//调用setting界面
+- (void)settingVC:(id)sender{
+    
+    NSLog(@"跳转setting界面");
+    
+    SettingViewController *settingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingVC"];
+   // [self.navigationController pushViewController:settingVC animated:YES];
+    [self presentViewController:settingVC animated:YES completion:nil];
+    
 }
 
 

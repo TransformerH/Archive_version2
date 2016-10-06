@@ -1,14 +1,15 @@
 //
-//  PeopleViewController.h
-//  PeopleListFinal
+//  ViewController.h
+//  XDRefresh
 //
-//  Created by 韩雪滢 on 9/2/16.
-//  Copyright © 2016 韩雪滢. All rights reserved.
+//  Created by 蔡欣东 on 2016/7/27.
+//  Copyright © 2016年 蔡欣东. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface PeopleViewController : UIViewController
-<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UISearchResultsUpdating>
+
 
 @end
+

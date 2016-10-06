@@ -63,5 +63,9 @@
 
 + (void)upLoadImages:(NSArray*)images UploadSuccess:(uplpadSuccess)uplpadSuccess AFNErrorBlock:(AFNErrorBlock)afnErrorblock;
 
+//上传修改的个人资料
++ (void)changeSettingWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock;
+
+
 
 @end

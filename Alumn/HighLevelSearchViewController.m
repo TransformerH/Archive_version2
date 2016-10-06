@@ -16,7 +16,7 @@
 #import "PeopleViewModel.h"
 #import "PeopleViewController.h"
 
-@interface HighLevelSearchViewController ()
+@interface HighLevelSearchViewController ()<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet YearpickerTextField *firstyearTextField;
 @property (weak, nonatomic) IBOutlet YearpickerTextField *secondyearTextField;
@@ -65,31 +65,17 @@
         NSLog(@"NO");
     }
     
-//    [self.countryTextField.rac_textSignal subscribeNext:^(id x) {
-        if(self.countryTextField.isFirstResponder){
-            NSLog(@"countryTextField");
-            [self.sender setPlaceTextFieldType:@"country"];
-        }
-//    }];
-    
-//    [self.stateTextField.rac_textSignal subscribeNext:^(id x) {
-        if(self.stateTextField.isFirstResponder){
-            NSLog(@"stateTextField");
-            [self.sender setPlaceTextFieldType:@"state"];
-        }
-//    }];
-    
-//    [self.cityTextField.rac_textSignal subscribeNext:^(id x) {
-        if(self.cityTextField.isFirstResponder){
-            NSLog(@"cityTextField");
-            [self.sender setPlaceTextFieldType:@"city"];
-        }
-//    }];
     self.resultBtn.backgroundColor = [UIColor colorWithRed:89/255.0 green:209/255.0 blue:141/255.0 alpha:1.0];
     [self.resultBtn setTitle:@"查询" forState:UIControlStateNormal];
   
     self.resultBtn.layer.masksToBounds = YES;
     self.resultBtn.layer.cornerRadius = 6.0;
+    
+    self.countryTextField.tag = 51;
+    self.stateTextField.tag = 52;
+    self.cityTextField.tag = 53;
+    self.firstyearTextField.tag = 31;
+    self.secondyearTextField.tag = 32;
     
 }
 
@@ -168,7 +154,7 @@
 
     NSLog(@"搜索地点：%@",searchPlace);
     
-        NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",firstYear,@"filter_admission_year_min",lastYear,@"filter_admission_year_max",@"[]",@"filter_major_list",searchPlace,@"filter_city_list",[NSNumber numberWithInt:0],@"all_match",@"",@"query", nil];
+        NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",firstYear,@"filter_admission_year_min",lastYear,@"filter_admission_year_max",@"[]",@"filter_major_list",searchPlace,@"filter_city_list",[NSNumber numberWithInt:0],@"all_match",@"",@"query",[NSNumber numberWithInt:1],@"page",[NSNumber numberWithInt:10],@"size",nil];
         NSLog(@"发送到:%@",requestDic);
     [User highSearchWithParameters:requestDic SuccessBlock:^(NSDictionary *dict, BOOL success) {
         NSLog(@"获取高级搜索列表成功");
@@ -184,6 +170,5 @@
     
 
 }
-
 
 @end

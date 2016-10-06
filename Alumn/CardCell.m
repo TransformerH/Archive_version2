@@ -65,8 +65,9 @@
 
 - (void)setImgUrl:(NSString *)imgUrl{
     _imgUrl = imgUrl;
-    UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imgUrl]]];
-    [self.imgView setImage:[self OriginImage:img scaleToSize:self.imgView.bounds.size]];
+//    UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imgUrl]]];
+//    [self.imgView setImage:[self OriginImage:img scaleToSize:self.imgView.bounds.size]];
+    [self.imgView sd_setImageWithURL:[NSURL URLWithString:_imgUrl]];
     self.imgView.layer.masksToBounds = YES;
     self.imgView.layer.cornerRadius = self.imgView.bounds.size.width / 2.0;
     

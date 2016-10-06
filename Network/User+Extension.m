@@ -8,6 +8,7 @@
 
 #import "User+Extension.h"
 #import "MeViewModel.h"
+#import "StaticData.h"
 
 static User *user;
 
@@ -403,17 +404,14 @@ static User *user;
     
     NSString *peoplelistURL = [[NSString alloc] initWithFormat:@"%@/search_user",[AFNetManager getMainURL]];
     
-    
-    //    NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[NSNumber numberWithInt:2000],@"filter_admission_year_min",[NSNumber numberWithInt:2016],@"filter_admission_year_max",@"[\"_金融_\",\"_软件学院_\"]",@"filter_major_list",@"[\"_中国_福建_漳州_\"]",@"filter_city_list",[NSNumber numberWithInt:0],@"all_match",@"",@"query", nil];
     NSLog(@"发送到:%@",parm);
-    
     
     [[AFNetManager manager] POST:peoplelistURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"获取人脉列表成功 ：%@", dic);
+        NSLog(@"高级筛选 获取人脉列表成功 ：%@", dic);
         successBlock(dic,YES);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"获取人脉列表失败 ：%@",error);
+        NSLog(@"高级筛选 获取人脉列表失败 ：%@",error);
         afnErrorblock(error);
     }];
 }
@@ -450,22 +448,46 @@ static User *user;
 //   人脉界面
 + (void)peopleListWithParameters:(NSDictionary *)parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock)afnErrorblock{
     
-    NSString *peoplelistURL = [[NSString alloc] initWithFormat:@"%@/search_user",[AFNetManager getMainURL]];
     
+    NSLog(@"1.Page数 :%@  Size数 :%@",[NSNumber numberWithInteger:[StaticData getPeoplePage]],[NSNumber numberWithInteger:[StaticData getPeopleSize]]);
     
-    NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[NSNumber numberWithInt:0],@"filter_admission_year_min",[NSNumber numberWithInt:9999],@"filter_admission_year_max",@"[]",@"filter_major_list",@"[]",@"filter_city_list",[NSNumber numberWithInt:0],@"all_match",@"",@"query", nil];
-    NSLog(@"发送到:%@",requestDic);
-    
-    
-    [[AFNetManager manager] POST:peoplelistURL parameters:requestDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"获取人脉列表成功 ：%@", dic);
-        successBlock(dic,YES);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"获取人脉列表失败 ：%@",error);
-        afnErrorblock(error);
-    }];
-    
+    if([StaticData getPeoplePage] > -1){
+        
+        NSString *peoplelistURL = [[NSString alloc] initWithFormat:@"%@/search_user",[AFNetManager getMainURL]];
+        NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[NSNumber numberWithInt:0],@"filter_admission_year_min",[NSNumber numberWithInt:9999],@"filter_admission_year_max",@"[]",@"filter_major_list",@"[]",@"filter_city_list",[NSNumber numberWithInt:2],@"all_match",@"",@"query",[NSNumber numberWithInteger:[StaticData getPeoplePage]] ,@"page",[NSNumber numberWithInt:10],@"size",nil];
+        
+        NSLog(@"传输的内容：%@",requestDic);
+        
+        [[AFNetManager manager] POST:peoplelistURL parameters:requestDic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil]];
+            NSLog(@"获取人脉列表成功 ：%@", dic);
+            
+            // 获得人脉列表的总个数  &&  计算page数
+            NSArray *peopleArray = [[[[dic valueForKey:@"Data"]valueForKey:@"response"]valueForKey:@"hits"]valueForKey:@"hits"];
+            
+            NSLog(@"人脉数组的个数 %@",[NSNumber numberWithInteger:peopleArray.count]);
+            
+            [StaticData setPeopleSize:peopleArray.count];
+            
+            
+            NSLog(@"AFNetManager 返回的successBlock中的Size：%@ Page :%@",[NSNumber numberWithInteger:[StaticData getPeopleSize]],[NSNumber numberWithInteger:[StaticData getPeoplePage]]);
+            
+            
+            NSMutableDictionary *saveDic = [[NSMutableDictionary alloc]init];
+            [saveDic setObject:peopleArray forKey:@"peopleArray"];
+            [saveDic setObject:[NSNumber numberWithInteger:[StaticData getPeopleSize]] forKey:@"peopleSize"];
+            
+            NSLog(@"获取人脉数组＋计算结果：%@",saveDic);
+            
+            successBlock(saveDic,YES);
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"获取人脉列表失败 ：%@",error);
+            afnErrorblock(error);
+        }];
+    }
     
 }
 
@@ -566,6 +588,23 @@ uplpadSuccess(picUrls,YES);
 
     
 }
+
+
+//上传个人信息修改的
++ (void)changeSettingWithParameters:(NSDictionary *)parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock)afnErrorblock{
+    NSString *getInfoURL = [[NSString alloc] initWithFormat:@"%@/updateinfo",[AFNetManager getMainURL]];
+    
+    [[AFNetManager manager] POST:getInfoURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"更新个人资料成功 ：%@", dic);
+        successBlock(dic,YES);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"更新个人资料失败 ：%@",error);
+        afnErrorblock(error);
+    }];
+    
+}
+
 
 
 @end

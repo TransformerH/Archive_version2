@@ -12,6 +12,9 @@
     UIToolbar *inputAccessoryView;
 }
 @synthesize yearArray;
+
+
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -19,6 +22,7 @@
     // Drawing code
 }
 */
+
 
 - (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -59,6 +63,8 @@
     self.text = [yearArray objectAtIndex:row];
 }
 
+
+
 #pragma mark - inputAccessoryView with toolbar
 - (BOOL)canBecomeFirstResponder{
     
@@ -70,7 +76,7 @@
     int startYear = 1952;
     int endYear = 2016;
     
-    if([self.sender getCurrentText])
+    if(self.tag == 31)
     {
         NSLog(@"Now is the firstSecondTextField");
         
@@ -78,7 +84,7 @@
         if([self.sender testSecondYear] != nil){
             endYear = [[self.sender getSecondYear] intValue];
         }
-    }else{
+    }else if(self.tag == 32){
         // 当前是第二个yearTextfield，判断是否已经选择了第一个参数
         if(![self.sender getCurrentText]){
             NSLog (@"%@",@"YTfield :NO");
@@ -89,7 +95,7 @@
         
         if([self.sender testFirstYear] != nil){
             startYear = [[self.sender getFirstYear] intValue];
-            NSLog([NSString stringWithFormat:@"startYear %d",startYear]);
+            NSLog(@"startYear %d",startYear);
         }
     }
     for(int i = startYear;i < endYear;i++){
@@ -97,9 +103,6 @@
     }
     
     yearArray = [[NSArray alloc] initWithArray:tempArray];
-    
-    
-
     
     return YES;
 }

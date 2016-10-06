@@ -64,18 +64,6 @@
     
     [super viewDidLoad];
     
-    //    [User systemMessageWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-    //        NSLog(@"获取消息列表成功");
-    //    } AFNErrorBlock:^(NSError *error) {
-    //        NSLog(@"获取消息列表失败");
-    //    }];
-    //    [User reciveCommentWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-    //        NSLog(@"检测评论列表是否存入");
-    //    } AFNErrorBlock:^(NSError *error) {
-    //        NSLog(@"获取评论失败");
-    //    }];
-    
-    
     [self initWithUserInterface];
     
 }

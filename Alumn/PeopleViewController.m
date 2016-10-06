@@ -1,55 +1,50 @@
 //
-//  PeopleViewController.m
-//  PeopleListFinal
+//  ViewController.m
+//  XDRefresh
 //
-//  Created by 韩雪滢 on 9/2/16.
-//  Copyright © 2016 韩雪滢. All rights reserved.
+//  Created by 韩雪滢 on 2016/7/27.
+//  Copyright © 2016年 韩雪滢. All rights reserved.
 //
 
 #import "PeopleViewController.h"
+#import "XDRefresh.h"
+#import "User+Extension.h"
+#import "User.h"
+#import "PeopleListVM.h"
+#import "StaticData.h"
 #import "PeopleViewCell.h"
 #import "ChooseButton.h"
 #import "PeopleVM.h"
 #import "HighLevelSearchViewController.h"
-
+#import "PersonalSettingVC.h"
 #import "PeopleViewModel.h"
-#import "User.h"
-#import "User+Extension.h"
-
 #import "MeInfoViewModel.h"
 #import "MeInfoViewController.h"
-
-#import "TextFieldSender.h"
-#import "PersonalSettingVC.h"
-
-#import "PeopleViewModel.h"
 
 static NSString *CellTableIdentifier=@"CellTableIdentifier";
 static BOOL isShow = NO;
 
 
-@interface PeopleViewController ()
+@interface PeopleViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    int _dataCount;
+    XDRefreshHeader *_header;
+    XDRefreshFooter *_footer;
+}
 
-@property (copy,nonatomic) NSArray *content;
+@property (nonatomic,strong)NSArray *content;
 @property (copy,nonatomic) NSMutableArray *choose;
 @property (copy,nonatomic) NSArray *result;
-@property (weak, nonatomic) IBOutlet UIButton *rightButton;
+
+@property (nonatomic,strong)UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *leftButton;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
-
-
+@property (weak, nonatomic) IBOutlet UIButton *rightButton;
 
 @property (strong,nonatomic) UIView *dview;
 
 @property (strong,nonatomic) PeopleVM *peopleVM;
-@property (strong,nonatomic) UITableView *tableView;
-@property (strong,nonatomic) MeInfoViewModel *meInfoVM;
-@property (strong,nonatomic) TextFieldSender *sender;
+@property (strong,nonatomic)MeInfoViewModel *meInfoVM;
 
-@property (strong,nonatomic) UISearchController *searController;
-@property (strong,nonatomic) UISearchBar *searchBar;
-
-@property (copy,nonatomic) NSMutableArray *searchResult;
+@property (weak, nonatomic) IBOutlet UINavigationItem *naviItem;
 
 
 @end
@@ -58,48 +53,17 @@ static BOOL isShow = NO;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-    UIView *barBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
-    barBackground.backgroundColor = [UIColor colorWithRed:111.0 / 255.0 green:214 / 255.0 blue:157.0 / 255.0 alpha:1.0];
-    [self.view addSubview:barBackground];
     
+    
+    self.content = [[NSArray alloc] init];
+    _peopleVM = [[PeopleVM alloc]init];
     self.meInfoVM = [MeInfoViewModel getMeInfoVM];
-    self.sender = [TextFieldSender getSender];
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:84 / 255.0 green:211 / 255.0 blue:139 / 255.0 alpha:1.0];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UIImage *rigthImg = [UIImage imageNamed:@"pickLogo"];
-    UIImageView *rightImgView = [[UIImageView alloc] initWithImage:[self OriginImage:rigthImg scaleToSize:CGSizeMake(20, 20)]];
-    rightImgView.bounds = CGRectMake(self.rightButton.bounds.origin.x - 10, self.rightButton.bounds.origin.y - 10, 20, 20);
-    [self.rightButton addSubview:rightImgView];
-   
-    UIImage *leftImg = [UIImage imageNamed:@"searchLogo"];
-    UIImageView *leftImgView = [[UIImageView alloc] initWithImage:[self OriginImage:leftImg scaleToSize:CGSizeMake(20, 20)]];
-    leftImgView.bounds = CGRectMake(0, self.leftButton.frame.origin.y - 10, 20, 20);
-    [self.leftButton addSubview:leftImgView];
-    [self.leftButton addTarget:self action:@selector(showSearchBar:) forControlEvents:UIControlEventTouchUpInside];
+    _dataCount = 0;
     
-    [self.rightButton addTarget:self action:@selector(showDown:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //----------------------------------------------------------  Net
-   
-        [User peopleListWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-            NSLog(@"获取人脉列表成功");
-            [PeopleViewModel peoleListSaveInPlist:[dict valueForKey:@"Data"]];
-            self.content = [self.peopleVM getPeople];
-            [self.tableView reloadData];
-            
-            for(int i = 0;i < self.content.count ; i++){
-                NSLog(@"peopleList :%@",self.content[i]);
-            }
-            
-        } AFNErrorBlock:^(NSError *error) {
-            NSLog(@"获取人脉列表失败");
-        }];
-      
-    //---------------------------------------------------------   tableView
     _tableView=(id)[self.view viewWithTag:1];
     
     _tableView.rowHeight=116;//表示图为单元预留合适的显示空间
@@ -109,73 +73,134 @@ static BOOL isShow = NO;
     UIEdgeInsets contentInset=_tableView.contentInset;
     contentInset.top=20;
     [_tableView setContentInset:contentInset];
-
     
-//---------------------------------------------------------   筛选view
+    _header =  [XDRefreshHeader headerOfScrollView:_tableView refreshingBlock:^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            sleep(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"hello");
+                [_footer resetNoMoreData];
+                if([StaticData getPeoplePage] != -1){
+                    _dataCount += 10;
+                }else{
+                    _dataCount += ([StaticData getPeopleSize] - _dataCount);
+                }
+                [_tableView reloadData];
+                [_header endRefreshing];
+                [User peopleListWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
+                    NSLog(@"ViewController 类中，获得人脉列表成功");
+                    [PeopleListVM saveInPlist:dict];
+                    
+                    self.content = [PeopleListVM getFromPlist];
+                    for(int i = 0; i < self.content.count;i++){
+                        NSLog(@"测试输出：%@",self.content[i]);
+                    }
+                    
+                    
+                } AFNErrorBlock:^(NSError *error) {
+                    NSLog(@"获得人脉列表失败");
+                }];
+                
+            });
+        });
+    }];
+    
+    [_header beginRefreshing];
+    
+    _footer = [XDRefreshFooter footerOfScrollView:_tableView refreshingBlock:^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            sleep(1);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"hello2");
+                
+                if([StaticData getPeoplePage] != -1){
+                    _dataCount += 10;
+                }else{
+                    _dataCount += ([StaticData getPeopleSize] - _dataCount);
+                }
+                
+                
+                if ([StaticData getPeoplePage] == -1) {
+                    [_footer endRefreshingWithNoMoreDataWithTitle:@"无数据了"];
+                }else {
+                    [_tableView reloadData];
+                    [_footer endRefreshing];
+                }
+                
+                
+                [User peopleListWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
+                    NSLog(@"ViewController 类中，获得人脉列表成功");
+                    [PeopleListVM saveInPlist:dict];
+                    
+                    self.content = [PeopleListVM getFromPlist];
+                    for(int i = 0; i < self.content.count;i++){
+                        NSLog(@"测试输出：%@",self.content[i]);
+                    }
+                    
+                    
+                } AFNErrorBlock:^(NSError *error) {
+                    NSLog(@"获得人脉列表失败");
+                }];
+                
+            });
+        });
+    }];
     
     _choose =[NSMutableArray arrayWithArray:@[@"NO",@"NO",@"NO"]];
     
     //_naviView.frame.size.height
-    _dview = [[UIView alloc] initWithFrame:CGRectMake(0,50, self.view.bounds.size.width, self.view.bounds.size.height- _navigationItem.accessibilityFrame.size.height)];
+    _dview = [[UIView alloc] initWithFrame:CGRectMake(0,50, self.view.bounds.size.width, self.view.bounds.size.height)];
     [self setDownView];
     
+    //--------------------------------  leftButton  rightButton
+    [self.leftButton addTarget:self action:@selector(showSearchBar:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.rightButton addTarget:self action:@selector(showDown:) forControlEvents:UIControlEventTouchUpInside];
+    
     
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//改变图片的大小适应image View的大小
--(UIImage *)OriginImage:(UIImage *)image scaleToSize:(CGSize)size{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
-}
-
-
-
-// table的行数
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"table的行数 %ld",(long)self.content.count);
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     
-    return self.content.count;
-}
-//------------------------------------------------  字典转数组
-
-- (NSArray*)dictionaryToArray:(NSDictionary*) dic{
-    NSMutableArray *result = [[NSMutableArray alloc] init];
-    [result addObject:[dic valueForKey:@"city"]];
-    [result addObject:[dic valueForKey:@"class"]];
-    [result addObject:[dic valueForKey:@"job"]];
-    [result addObject:[dic valueForKey:@"major"]];
-    [result addObject:[dic valueForKey:@"name"]];
-    return [NSArray arrayWithArray:result];
+    return _dataCount;
 }
 
 - (PeopleViewCell*)tableView:(UITableView*)tableView
        cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     //注册tableCell，创建新的cell，重复利用
     PeopleViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellTableIdentifier forIndexPath:indexPath];
-    NSDictionary *rowData=[self.content[indexPath.row] valueForKey:@"_source"];
-    cell.name=rowData[@"name"];
-    cell.major=rowData[@"faculty"];
-    cell.classNum = rowData[@"major"];
-    cell.job = rowData[@"job"];
-    cell.city= rowData[@"city"];
-    cell.peopleUrl = rowData[@"icon_url"];
     
-    NSLog(@"cell.name %@; cell.major %@; cell.classNum %@;",cell.name,cell.major,cell.classNum);
-    
+    if(indexPath.row < self.content.count){
+        NSDictionary *rowData=[self.content[indexPath.row] valueForKey:@"_source"];
+        
+        NSLog(@"当前行people的dictionary：%@",self.content[indexPath.row]);
+        
+        cell.name=rowData[@"name"];
+        cell.major=rowData[@"faculty"];
+        cell.classNum = rowData[@"major"];
+        cell.job = rowData[@"job"];
+        cell.city= rowData[@"city"];
+        cell.peopleUrl = rowData[@"icon_url"];
+        
+        NSLog(@"cell.name %@; cell.major %@; cell.classNum %@;",cell.name,cell.major,cell.classNum);
+    }else{
+        cell.name= @"";
+        cell.major= @"";
+        cell.classNum = @"";
+        cell.job = @"";
+        cell.city= @"";
+        cell.peopleUrl = @"";
+        
+    }
     return cell;
 }
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 - (void)showDown:(id)sender{
     if(!isShow){
@@ -188,7 +213,6 @@ static BOOL isShow = NO;
     }
     
 }
-
 
 - (void)setDownView{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0,0, self.view.bounds.size.width, self.view.bounds.size.height / 5)];
@@ -308,26 +332,28 @@ static BOOL isShow = NO;
     }];
     
     
-    ChooseButton *closeBtn = [[ChooseButton alloc] initWithFrame:CGRectMake(270, view.bounds.size.height - 45, 80, 30)];
-    closeBtn.backgroundColor = [UIColor colorWithRed:84 / 255.0 green:211 / 255.0 blue:139 / 255.0 alpha:1.0];
-    [closeBtn.layer setMasksToBounds:YES];
-    [closeBtn.layer setCornerRadius:6.0];
-    [closeBtn setTitle:@"确定" forState:UIControlStateNormal];
-    closeBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-    [closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        ChooseButton *closeBtn = [[ChooseButton alloc] initWithFrame:CGRectMake(270, view.bounds.size.height - 45, 80, 30)];
+        closeBtn.backgroundColor = [UIColor colorWithRed:84 / 255.0 green:211 / 255.0 blue:139 / 255.0 alpha:1.0];
+        [closeBtn.layer setMasksToBounds:YES];
+        [closeBtn.layer setCornerRadius:6.0];
+        [closeBtn setTitle:@"确定" forState:UIControlStateNormal];
+        closeBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        [closeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [closeBtn addTapBlock:^(UIButton *button) {
-        _result = [_peopleVM matchPeople:[NSArray arrayWithArray:_choose]];
-        self.content = [NSArray arrayWithArray:_result];
-        //#########################   NSLog 测试新的content
-        for(int k = 0 ;k<self.content.count;k++){
-            NSLog(@"新的content :%@",self.content[k]);
-        }
-        
-        [self.tableView reloadData];
-        
-    }];
+        [closeBtn addTapBlock:^(UIButton *button) {
+            
+            NSLog(@"提交查询条件");
+            
+            _result = [_peopleVM matchPeople:[NSArray arrayWithArray:_choose]];
+            self.content = [NSArray arrayWithArray:_result];
+            //#########################   NSLog 测试新的content
+            for(int k = 0 ;k<self.content.count;k++){
+                NSLog(@"新的content :%@",self.content[k]);
+            }
     
+            [self.tableView reloadData];
+    
+        }];
     
     UIButton *superBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, view.bounds.size.height - 45, 80, 30)];
     superBtn.backgroundColor = [UIColor whiteColor];
@@ -366,6 +392,7 @@ static BOOL isShow = NO;
 - (void)superChoose:(id)sender{
     HighLevelSearchViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"highLevel"];
     [self.navigationController pushViewController:vc animated:YES];
+//  [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)clickBtn:(UIButton*)btn{
@@ -379,6 +406,22 @@ static BOOL isShow = NO;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+//    self.peopleVM = [[PeopleVM alloc] init];
+
+    if([PeopleViewModel highSearchFromPlist] != nil ){
+        self.content = [PeopleViewModel highSearchFromPlist];
+    }else{
+        self.content = [PeopleListVM getFromPlist];
+    }
+
+    [self.tableView reloadData];
+}
+
+- (void)showSearchBar:(id)sender{
+    PersonalSettingVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"uncertainSearch"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dict = self.content[indexPath.row];
@@ -401,7 +444,7 @@ static BOOL isShow = NO;
             [[dict valueForKey:@"Data"] writeToFile:fileName atomically:YES];
             NSLog(@"personalDetailInfoSecond.plist文件写入完成");
         }
-
+        
         
         [self.meInfoVM setIfFollowed:[[[dict valueForKey:@"Data"] valueForKey:@"response"]valueForKey:@"has_followed"]];
         
@@ -415,7 +458,7 @@ static BOOL isShow = NO;
             [self.content[indexPath.row]  writeToFile:fileName2 atomically:YES];
             NSLog(@"personalDetailInfoFirst.plist文件写入完成");
         }
-
+        
         
         MeInfoViewController *meInfoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"meInfo"];
         [self.navigationController pushViewController:meInfoVC animated:YES];
@@ -424,39 +467,10 @@ static BOOL isShow = NO;
         NSLog(@"获得某个人脉详情失败，此处应加一个弹窗显示");
     }];
     
-   
+    
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    self.peopleVM = [[PeopleVM alloc] init];
-    
-    if([PeopleViewModel highSearchFromPlist] != nil ){
-        self.content = [self.peopleVM reGetPeople];
-    }else{
-        self.content = [PeopleViewModel peopleArrayFromPlist];
-    }
-    
-    [self.tableView reloadData];
-}
 
-
-
-- (void)showSearchBar:(id)sender{
-    PersonalSettingVC *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"uncertainSearch"];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-
-#pragma mark - Navigation
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    NSIndexPath *path = [self.tableView indexPathForCell:sender];
-    MeInfoViewController *meVC = segue.destinationViewController;
-}
-*/
 
 @end

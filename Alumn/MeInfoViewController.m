@@ -13,7 +13,7 @@
 
 #import <CDChatManager.h>
 #import "ChatViewController.h"
-
+#import "PeopleViewController.h"
 
 @interface MeInfoViewController ()
     
@@ -49,13 +49,6 @@
     
     // Do any additional setup after loading the view.
     
-    //---------------------------------------------   设置navigationBar透明
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsCompact];
-    self.navigationController.navigationBar.layer.masksToBounds = YES;
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    //----------------------------------------------  设置navigationBar透明
-    
-    [self.navigationController.navigationItem setTitle:@"人脉详情"];
     self.meInfoVM = [MeInfoViewModel getMeInfoVM];
     NSLog(@"MeViewInfoVMn %@ %@ %@ %@ %@ %@ :",self.schoolLabel.text, self.majorLabel.text,self.classLabel.text, self.enrollYearLabel.text, self.companyLabel.text,self.jobLabel.text);
     
@@ -66,13 +59,9 @@
     self.companyLabel.text = self.meInfoVM.company;
     self.jobLabel.text = self.meInfoVM.job;
     
-    
-    
-    
     [self initHeadView];
     
 }
-    
     
     //--------------------------------------  init headView
 - (void)initHeadView{

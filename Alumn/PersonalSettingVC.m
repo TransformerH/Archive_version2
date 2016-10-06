@@ -99,7 +99,7 @@ static NSString *ResultTableCellID = @"CellTableIdentifier";
     
     NSLog(@"search Bar shouldBeginEditing");
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     return YES;
 }
 
@@ -107,7 +107,7 @@ static NSString *ResultTableCellID = @"CellTableIdentifier";
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     NSLog(@"点击searchButton进行搜索");
     
-    NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[NSNumber numberWithInt:0],@"filter_admission_year_min",[NSNumber numberWithInt:9999],@"filter_admission_year_max",@"[]",@"filter_major_list",@"[]",@"filter_city_list",[NSNumber numberWithInt:1],@"all_match",searchBar.text,@"query", nil];
+    NSDictionary *requestDic = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[NSNumber numberWithInt:0],@"filter_admission_year_min",[NSNumber numberWithInt:9999],@"filter_admission_year_max",@"[]",@"filter_major_list",@"[]",@"filter_city_list",[NSNumber numberWithInt:1],@"all_match",searchBar.text,@"query",[NSNumber numberWithInt:1],@"page",[NSNumber numberWithInt:10],@"size", nil];
     NSLog(@"发送到:%@",requestDic);
     [User uncertainSearchWithParameters:requestDic SuccessBlock:^(NSDictionary *dict, BOOL success) {
         //设置 resultArray 显示

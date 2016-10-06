@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alumn/MessageViewController.m"
-            timestampString = "497072011.886463"
+            timestampString = "497416914.28143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "-setContentscrollViewContentTableView"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alumn/PeopleViewController.m"
-            timestampString = "496477947.585609"
+            timestampString = "497416914.28143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "-setDownView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alumn/MessageViewController.m"
-            timestampString = "497072011.886463"
+            timestampString = "497416914.28143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
             <Locations>

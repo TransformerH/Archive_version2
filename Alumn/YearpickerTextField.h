@@ -11,7 +11,7 @@
 
 
 @interface YearpickerTextField : UITextField
-<UIPickerViewDataSource,UIPickerViewDelegate>{
+<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>{
     UIPickerView *pickView;
 }
 

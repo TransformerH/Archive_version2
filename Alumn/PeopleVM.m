@@ -7,8 +7,9 @@
 //
 
 #import "PeopleVM.h"
-#import "PeopleViewModel.h"
+//#import "PeopleViewModel.h"
 #import "TextFieldSender.h"
+#import "PeopleListVM.h"
 
 @interface PeopleVM()
 
@@ -20,33 +21,35 @@
 
 @implementation PeopleVM
 
-- (NSArray*)getPeople{
-    _people = [[NSArray alloc] initWithArray:[PeopleViewModel peopleArrayFromPlist]];
-    
-    for(int i = 0;i < _people.count;i++)
-    {
-        NSLog(@"getPeople :%@",_people[i]);
-    }
-    
-    return _people;
-}
+//- (NSArray*)getPeople{
+//    _people = [[NSArray alloc] initWithArray:[PeopleViewModel peopleArrayFromPlist]];
+//    
+//    for(int i = 0;i < _people.count;i++)
+//    {
+//        NSLog(@"getPeople :%@",_people[i]);
+//    }
+//    
+//    return _people;
+//}
 
-- (NSArray*)reGetPeople{
-    _people = [[NSArray alloc] initWithArray:[PeopleViewModel highSearchFromPlist]];
-    
-    for(int i = 0;i < _people.count;i++)
-    {
-        NSLog(@"getPeople :%@",_people[i]);
-    }
-    
-    return _people;
-
-}
+//- (NSArray*)reGetPeople{
+//    _people = [[NSArray alloc] initWithArray:[PeopleViewModel highSearchFromPlist]];
+//    
+//    for(int i = 0;i < _people.count;i++)
+//    {
+//        NSLog(@"getPeople :%@",_people[i]);
+//    }
+//    
+//    return _people;
+//
+//}
 
 - (NSArray*)matchPeople:(NSArray *)choose{
     
+    NSLog(@"执行查询匹配函数");
+    
     NSMutableArray *matchResult = [[NSMutableArray alloc] init];
-    _people = [[NSArray alloc] initWithArray:[PeopleViewModel peopleArrayFromPlist]];
+    _people = [[NSArray alloc] initWithArray:[PeopleListVM getFromPlist]];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *plistPath1= [paths objectAtIndex:0];
@@ -124,18 +127,21 @@
     //不进行处理  不同院系  不同年级   不同城市
     
        
-    /*
+    
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  NSLog 输出  测试结果
+    
+    NSLog(@"匹配结果");
+    
     for(int i = 0;i < matchResult.count;i++){
         NSLog(@"%@",matchResult[i]);
-    }*/
+    }
     
     return matchResult;
 }
 
 - (NSArray*)searchPeople:(NSString *)message{
     NSMutableArray *result = [NSMutableArray alloc];
-      _people = [[NSArray alloc] initWithArray:[PeopleViewModel peopleArrayFromPlist]];
+      _people = [[NSArray alloc] initWithArray:[PeopleListVM getFromPlist]];
     
     for(int i = 0;i < _people.count;i++){
         if([message isEqualToString:[_people[i] valueForKey:@"name"]]){
