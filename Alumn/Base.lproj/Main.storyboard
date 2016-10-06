@@ -204,7 +204,7 @@
             <objects>
                 <navigationController id="wGI-gq-Kay" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="人脉" image="人脉" id="U7O-ww-x2U"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="L2r-Jf-N8j">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L2r-Jf-N8j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.32549019610000002" green="0.82352941180000006" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
@@ -663,7 +663,7 @@
         <!--Login View Controller-->
         <scene sceneID="IEF-Jp-Eh1">
             <objects>
-                <viewController id="3EQ-Jz-qYO" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3EQ-Jz-qYO" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="82z-BU-dV7"/>
                         <viewControllerLayoutGuide type="bottom" id="lej-8H-Hy0"/>
@@ -1695,7 +1695,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kbG-Hm-G9z" id="IFj-zZ-rFG">
-                                            <frame key="frameInset" width="320" height="43.5"/>
+                                            <frame key="frameInset" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

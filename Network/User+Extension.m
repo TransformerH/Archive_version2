@@ -293,9 +293,21 @@ static User *user;
     
 }
 //注销
-+(void) logoutWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock
-{
++(void) logoutWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock{
     
+    NSString *logoutURL = [[NSString alloc] initWithFormat:@"%@/logout",[AFNetManager getMainURL]];
+    
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf", nil];
+    
+    [[AFNetManager manager] POST:logoutURL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"退出登录成功 ：%@", dic);
+        successBlock(dic,YES);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"退出登录失败 ：%@",error);
+        afnErrorblock(error);
+    }];
+
 }
 //用户设置
 +(void) userSettingWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock
@@ -604,6 +616,7 @@ uplpadSuccess(picUrls,YES);
     }];
     
 }
+
 
 
 

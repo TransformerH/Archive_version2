@@ -117,7 +117,7 @@
     self.changeImgBtn = [[UIButton alloc] initWithFrame:CGRectMake(280, 91, 30, 30)];
     [self.changeImgBtn addTarget:self action:@selector(callActionSheetFunc:) forControlEvents:UIControlEventTouchUpInside];
     [self.changeImgBtn setTitle:@">" forState:UIControlStateNormal];
-    self.changeImgBtn.tintColor = [UIColor colorWithRed:102/255.0 green:201/255.0 blue:155/255.0 alpha:1.0];
+    [self.changeImgBtn setTitleColor:[UIColor colorWithRed:102/255.0 green:201/255.0 blue:155/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.view addSubview:self.changeImgBtn];
     
 }
@@ -271,8 +271,8 @@
 - (IBAction)backMeVC:(id)sender {
     
     MyMainViewController *myMainVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FiveTab"];
-    [self presentViewController:myMainVC animated:YES completion:nil];
-    
+   // [self presentViewController:myMainVC animated:YES completion:nil];
+    [self.navigationController pushViewController:myMainVC animated:YES];
 }
 
 

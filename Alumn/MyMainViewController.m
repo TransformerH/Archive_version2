@@ -21,6 +21,7 @@
 #import "AFNetManager.h"
 #import   "UIImageView+WebCache.h"
 #import "SettingViewController.h"
+#import "LoginViewController.h"
 
 
 @interface MyMainViewController ()<UIScrollViewDelegate,UITableViewDelegate>
@@ -110,11 +111,32 @@
     
     //setButton
     UIButton *setButton = [[UIButton alloc] init];
-    setButton.frame = CGRectMake((_headScrollView.bounds.size.width - 45), 35, 24, 24);
-    [setButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"setBtn"] scaleToSize:setButton.bounds.size] forState:UIControlStateNormal];
+    setButton.frame = CGRectMake( 45, 35, 20, 20);
+    [setButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"changeInfoLogo"] scaleToSize:setButton.bounds.size] forState:UIControlStateNormal];
     [setButton addTarget:self action:@selector(settingVC:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:setButton];
+    
+    UIButton *logoutButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.bounds.size.width - 45), 35, 20, 20)];
+    [logoutButton setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"logoutLogo"] scaleToSize:logoutButton.bounds.size] forState:UIControlStateNormal];
+    [logoutButton addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:logoutButton];
+    
 }
+
+- (void)logout:(id)sender{
+    [User logoutWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        LoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
+      //  [self presentViewController:loginVC animated:YES completion:nil];
+        [self.navigationController pushViewController:loginVC animated:YES];
+        
+        NSLog(@"退出成功");
+    } AFNErrorBlock:^(NSError *error) {
+        NSLog(@"退出失败");
+    }];
+}
+
 - (UIScrollView *)bottomScrollView
 {
     if (!_bottomScrollView) {
@@ -145,10 +167,13 @@
         
         UIImageView *userImg = [[UIImageView alloc] initWithFrame:CGRectMake((_headScrollView.bounds.size.width / 2.0 - 55),( _headScrollView.bounds.size.height / 2.0 - 55), 110, 110)];
         
-        UIImage *img = [UIImage imageNamed:@"Image"];
-        UIImageView *userHead = [[UIImageView alloc] initWithImage:img];
-        userHead.frame = CGRectMake(userImg.frame.origin.x, userImg.frame.origin.y, 100, 100);
-        [userHead sd_setImageWithURL:[NSURL URLWithString:[[User getUserDic] valueForKey:@"icon_url"]]];
+    
+        UIImageView *userHead = [[UIImageView alloc] initWithFrame:CGRectMake(userImg.frame.origin.x, userImg.frame.origin.y, 100, 100)];
+        UIImage *img2 = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[User getUserDic]valueForKey:@"icon_url"]]]];
+        NSLog(@"用户头像检查:%@",[[User getUserDic] valueForKey:@"icon_url"]);
+        [userHead setImage:[self OriginImage:img2 scaleToSize:userHead.bounds.size]];
+
+        //[userHead sd_setImageWithURL:[NSURL URLWithString:[[User getUserDic] valueForKey:@"icon_url"]]];
         userHead.layer.masksToBounds = YES;
         userHead.layer.cornerRadius = userHead.bounds.size.width / 2.0;
         
@@ -182,8 +207,8 @@
     NSLog(@"跳转setting界面");
     
     SettingViewController *settingVC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingVC"];
-   // [self.navigationController pushViewController:settingVC animated:YES];
-    [self presentViewController:settingVC animated:YES completion:nil];
+    [self.navigationController pushViewController:settingVC animated:YES];
+   // [self presentViewController:settingVC animated:YES completion:nil];
     
 }
 
