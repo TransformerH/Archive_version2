@@ -3,7 +3,7 @@
 //  Alumn
 //
 //  Created by Dorangefly Liu on 16/9/13.
-//  Copyright © 2016年 刘畅. All rights reserved.
+//  Copyright © 2016年 韩雪滢. All rights reserved.
 //
 
 #import "MessageTableViewController.h"

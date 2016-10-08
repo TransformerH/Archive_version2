@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alumn/MessageViewController.m"
-            timestampString = "497416914.28143"
+            timestampString = "497518892.823126"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
             landmarkName = "-setContentscrollViewContentTableView"
             landmarkType = "7">
          </BreakpointContent>
@@ -185,46 +185,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Alumn/MessageViewController.m"
-            timestampString = "497416914.28143"
+            filePath = "PeopleViewModel.m"
+            timestampString = "497022485.69747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "597"
-            endingLineNumber = "597"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "+peopleArrayFromPlist"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MessageViewController tableView:didSelectRowAtIndexPath:]"
-                  moduleName = "Alumn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanxueying/Documents/Programming/IOS/Archive-ArchiveCode/Alumn/MessageViewController.m"
-                  timestampString = "496514141.454233"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "645"
-                  endingLineNumber = "645"
-                  offsetFromSymbolStart = "834">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__59-[MessageViewController tableView:didSelectRowAtIndexPath:]_block_invoke"
-                  moduleName = "Alumn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanxueying/Documents/Programming/IOS/Archive-ArchiveCode/Alumn/MessageViewController.m"
-                  timestampString = "496514141.457292"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "646"
-                  endingLineNumber = "646"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -233,13 +201,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PeopleViewModel.m"
-            timestampString = "497022485.69747"
+            filePath = "Alumn/MessageViewController.m"
+            timestampString = "497518892.823126"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "+peopleArrayFromPlist"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

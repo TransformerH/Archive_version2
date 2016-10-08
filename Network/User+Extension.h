@@ -65,7 +65,8 @@
 
 //上传修改的个人资料
 + (void)changeSettingWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock;
-
+//审核申请
++ (void)checkApplyWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock;
 
 
 @end

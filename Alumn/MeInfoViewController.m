@@ -14,6 +14,7 @@
 #import <CDChatManager.h>
 #import "ChatViewController.h"
 #import "PeopleViewController.h"
+#import "ApplyMessageVC.h"
 
 @interface MeInfoViewController ()
     
@@ -50,7 +51,6 @@
     // Do any additional setup after loading the view.
     
     self.meInfoVM = [MeInfoViewModel getMeInfoVM];
-    NSLog(@"MeViewInfoVMn %@ %@ %@ %@ %@ %@ :",self.schoolLabel.text, self.majorLabel.text,self.classLabel.text, self.enrollYearLabel.text, self.companyLabel.text,self.jobLabel.text);
     
     self.schoolLabel.text = self.meInfoVM.school;
     self.majorLabel.text = self.meInfoVM.major;
@@ -59,8 +59,27 @@
     self.companyLabel.text = self.meInfoVM.company;
     self.jobLabel.text = self.meInfoVM.job;
     
+    NSLog(@"人脉详情界面，界面输出： %@ %@ %@ %@ %@ %@ :",self.schoolLabel.text, self.majorLabel.text,self.classLabel.text, self.enrollYearLabel.text, self.companyLabel.text,self.jobLabel.text);
+    
     [self initHeadView];
     
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.bounds.size.width, 40)];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    [backBtn addTarget:self action:@selector(backToApplyVC:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn setTitle:@"< Back" forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backView addSubview:backBtn];
+    [self.view addSubview:backView];
+    
+}
+
+- (void)backToApplyVC:(id)sender{
+    
+    NSLog(@"点击返回申请消息界面");
+    
+    ApplyMessageVC *applyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"FiveTab"];
+    [self.navigationController pushViewController:applyVC animated:YES];
+    //[self presentViewController:applyVC animated:YES completion:nil];
 }
     
     //--------------------------------------  init headView
@@ -276,6 +295,8 @@
     NSLog(@"点击收藏名片button ， 当前为 %@",followOrNot);
     
     NSDictionary *followDic = [[NSDictionary alloc]initWithObjectsAndKeys:[User getXrsf],@"_xsrf",followOrNot,@"target",self.meInfoVM.uid,@"uid", nil];
+    
+    NSLog(@"点击收藏名片的request%@",followDic);
     
     [User collectTheCard:followDic SuccessBlock:^(NSDictionary *dict, BOOL success) {
         NSString *has_followed = [[[dict valueForKey:@"Data"]valueForKey:@"response"]valueForKey:@"has_followed"];

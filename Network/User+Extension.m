@@ -617,7 +617,20 @@ uplpadSuccess(picUrls,YES);
     
 }
 
+//审核申请
++ (void)checkApplyWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock{
+    NSString *checkApplyURL = [[NSString alloc] initWithFormat:@"%@/circle_apply_result",[AFNetManager getMainURL]];
+    
+    [[AFNetManager manager] POST:checkApplyURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"更新个人资料成功 ：%@", dic);
+        successBlock(dic,YES);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"更新个人资料失败 ：%@",error);
+        afnErrorblock(error);
+    }];
 
+}
 
 
 @end

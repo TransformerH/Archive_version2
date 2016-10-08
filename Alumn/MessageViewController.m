@@ -26,6 +26,9 @@
 
 #import "SystemMessageTableViewCell.h"
 
+#import "MessageDetailVM.h"
+#import "ApplyMessageVC.h"
+#import "SystemMessageVC.h"
 
 @interface MessageViewController ()<UIScrollViewDelegate,UITableViewDelegate>
 {
@@ -583,13 +586,25 @@
     NSString *trend = [[NSString alloc] init];
     
     
+    
     if(_currentSeletedHeadScrollViewSubButtonNumberTag == 1){
-        title = @"圈子通知";
-        NSArray *messageData = [MessageViewModel messageListFromPlist];
-        content = [[messageData[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"];
-        time = [messageData[indexPath.row] valueForKey:@"update_time"];
         
-        message = [NSString stringWithFormat:@"时间:%@\n内容:%@",time,content];
+        NSArray *messageData = [MessageViewModel messageListFromPlist];
+        NSDictionary *messageDic = messageData[indexPath.row];
+        [MessageDetailVM setMessageDic:messageData[indexPath.row]];
+        
+        NSNumber *type = [messageDic valueForKey:@"type"];
+        
+        if(type.integerValue == 4){
+            ApplyMessageVC *applyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ApplyVC"];
+            [self.navigationController pushViewController:applyVC animated:YES];
+        }else{
+            SystemMessageVC *systemVC = [self.storyboard instantiateViewControllerWithIdentifier:@"systemVC"];
+            [self.navigationController pushViewController:systemVC animated:YES];
+        }
+        
+        
+        NSLog(@"分析一下现在的数据 %@",[MessageDetailVM getMessageDic]);
         
     }else{
         NSArray *commentData = [MessageViewModel commentListFromPlist];
@@ -598,15 +613,16 @@
         title = [NSString stringWithFormat:@"%@评论了您的动态",commentName];
         time = [commentData[indexPath.row] valueForKey:@"create_time"];
         message = [NSString stringWithFormat:@"时间:%@\n评论:%@",time,content];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"消息详情确认");
+        }];
+        [alertController addAction:cancleAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+
     }
     
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"消息详情确认");
-    }];
-    [alertController addAction:cancleAction];
-    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
