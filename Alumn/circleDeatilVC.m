@@ -129,8 +129,8 @@
     //[self.navigationController popViewControllerAnimated:YES];
       //[self.navigationController popToRootViewControllerAnimated:YES];
     //[self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [SecondViewController setPage:1];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    [SecondViewController setPage:1];
 
     
 }
@@ -226,11 +226,13 @@
 
 
 - (IBAction)settingButoonClicked:(id)sender {
-    [self.button setHidden: true];
-    circleSettingVC *viewVC = [[circleSettingVC alloc]init];
-       [self.navigationController pushViewController:viewVC animated:YES];
-    viewVC.dargbutton =self.button;
-    
+//    [self.button setHidden: true];
+//    circleSettingVC *viewVC = [[circleSettingVC alloc]init];
+//       [self.navigationController pushViewController:viewVC animated:YES];
+//    viewVC.dargbutton =self.button;
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [SecondViewController setPage:1];
+
 }
 
 - (IBAction)sendMessage:(id)sender {

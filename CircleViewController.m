@@ -285,7 +285,13 @@
     [replyInputView setContentSizeBlock:^(CGSize contentSize) {
         [self updateHeight:contentSize];
     }];
-    NSString *user=[[DemoVC5 getCurrentCell] objectForKey:@"name"];
+   // NSString *user=[[DemoVC5 getCurrentCell] objectForKey:@"name"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *plistPath1= [paths objectAtIndex:0];
+    NSString *plistName =[[NSString alloc] initWithFormat:@"User.plist"];
+    NSString *fileName = [plistPath1 stringByAppendingPathComponent:plistName];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:fileName];
+    NSString *user = [dict objectForKey:@"name"];
     NSString *name = [[NSString alloc]initWithFormat:@"%@ :",user ];
     [replyInputView setReplyAddBlock:^(NSString *replyText, NSInteger inputTag) {
             NSDictionary *userInfo =[[NSDictionary alloc] initWithObjectsAndKeys:[[DemoVC5 getCurrentCell] objectForKey:@"feed_id"],@"feed_id",replyText,@"content", nil];

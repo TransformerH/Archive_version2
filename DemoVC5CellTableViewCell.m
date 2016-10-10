@@ -112,27 +112,32 @@
    static CGFloat bottomMargin = 0;
     
     
-    // 在实际的开发中，网络图片的宽高应由图片服务器返回然后计算宽高比。ic
+    // 在实际的开发中，网络图片的宽高应由图片服务器返回然后计算宽高比。
     
     UIImageView *pic = [[UIImageView alloc]init];
     if(self.model.image_urls.count>0)
     {
-    [pic  sd_setImageWithURL:[NSURL URLWithString:[self.model.image_urls objectAtIndex:0]]];
+//    [pic  sd_setImageWithURL:[NSURL URLWithString:[self.model.image_urls objectAtIndex:0]]];
 //    NSLog(@"pictureurl%@",[self.model.image_urls objectAtIndex:1]);
-    [pic sd_setImageWithURL:[self.model.image_urls objectAtIndex:1] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (image.size.width > 0) {
-            CGFloat scale = image.size.height / image.size.width;
+    [pic sd_setImageWithURL:[self.model.image_urls objectAtIndex:0] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (pic.image.size.width > 0) {
+            
+            CGFloat scale = pic.image.size.height / pic.image.size.width;
+            NSLog(@"pic de chang %f das%f scale %f",pic.image.size.height,pic.image.size.width,scale);
             _view3.sd_layout.autoHeightRatio(scale);
-            _view3.image=image;
+            //_view3.image=pic.image;
             bottomMargin = 40;
+            [_view3 sd_setImageWithURL:[NSURL URLWithString:[self.model.image_urls objectAtIndex:0]]];
         } else {
             _view3.sd_layout.autoHeightRatio(0);
         }
  
     }];
-    }else{
-        _view3.sd_layout.autoHeightRatio(0);
     }
+
+//    }else{
+//        _view3.sd_layout.autoHeightRatio(0);
+//    }
 
     //***********************高度自适应cell设置步骤************************
     

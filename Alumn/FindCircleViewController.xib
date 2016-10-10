@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FindCircleViewController">
@@ -29,25 +30,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="创业圈" translatesAutoresizingMaskIntoConstraints="NO" id="nqp-JO-LY5">
-                    <rect key="frame" x="63" y="110" width="60" height="60"/>
+                    <frame key="frameInset" minX="63" minY="110" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="nqp-JO-LY5" secondAttribute="height" multiplier="1:1" id="L3a-0F-mq3"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="院系圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTb-6t-pkP">
-                    <rect key="frame" x="67" y="178" width="53" height="25"/>
+                    <frame key="frameInset" minX="67" minY="178" width="53" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="软件圈" translatesAutoresizingMaskIntoConstraints="NO" id="9gf-aO-yMa">
-                    <rect key="frame" x="247" y="115" width="60" height="60"/>
+                    <frame key="frameInset" minX="247" minY="115" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="9gf-aO-yMa" secondAttribute="height" multiplier="1:1" id="wmi-b5-Og2"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5p-nQ-lu5">
-                    <rect key="frame" x="188" y="64" width="187" height="187"/>
+                    <frame key="frameInset" minX="188" minY="64" width="187" height="187"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="c5p-nQ-lu5" secondAttribute="height" multiplier="1:1" id="5JU-kA-N5s"/>
                         <constraint firstAttribute="width" constant="187" id="boJ-Jv-lDf"/>
@@ -61,19 +62,19 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="实习圈" translatesAutoresizingMaskIntoConstraints="NO" id="Wpu-In-xxJ">
-                    <rect key="frame" x="63" y="301" width="60" height="60"/>
+                    <frame key="frameInset" minX="63" minY="301" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Wpu-In-xxJ" secondAttribute="height" multiplier="1:1" id="1sU-Bt-LQe"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="职业圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGB-gZ-sNY">
-                    <rect key="frame" x="67" y="369" width="53" height="25"/>
+                    <frame key="frameInset" minX="67" minY="369" width="53" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGh-QY-pL8" userLabel="job Button">
-                    <rect key="frame" x="0.0" y="259" width="188" height="187"/>
+                    <frame key="frameInset" minY="259" width="188" height="187"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="187" id="KWV-8Q-h28"/>
                         <constraint firstAttribute="width" constant="187.5" id="fK1-dI-HYu"/>
@@ -87,32 +88,32 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="法律圈" translatesAutoresizingMaskIntoConstraints="NO" id="qdM-Hy-Aow">
-                    <rect key="frame" x="247" y="301" width="60" height="60"/>
+                    <frame key="frameInset" minX="247" minY="301" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="qdM-Hy-Aow" secondAttribute="height" multiplier="1:1" id="jXh-MN-kh0"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="地域圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ4-qW-bGI">
-                    <rect key="frame" x="249" y="369" width="53" height="25"/>
+                    <frame key="frameInset" minX="249" minY="369" width="53" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="经管圈" translatesAutoresizingMaskIntoConstraints="NO" id="DoA-Mq-AaY">
-                    <rect key="frame" x="63" y="488" width="60" height="60"/>
+                    <frame key="frameInset" minX="63" minY="488" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="DoA-Mq-AaY" secondAttribute="height" multiplier="1:1" id="d5z-uv-J96"/>
                         <constraint firstAttribute="width" secondItem="DoA-Mq-AaY" secondAttribute="height" multiplier="1:1" id="ryO-EM-9Ll"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="兴趣圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0m-Is-7V7">
-                    <rect key="frame" x="67" y="556" width="53" height="25"/>
+                    <frame key="frameInset" minX="67" minY="556" width="53" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-fw-zbX" userLabel="hobbyButton">
-                    <rect key="frame" x="0.0" y="446" width="188" height="187"/>
+                    <frame key="frameInset" minY="446" width="188" height="187"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="9Qe-fw-zbX" secondAttribute="height" multiplier="1:1" id="ThJ-it-rMd"/>
                         <constraint firstAttribute="height" constant="187" id="YRq-p7-D6J"/>
@@ -127,19 +128,19 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="电气圈" translatesAutoresizingMaskIntoConstraints="NO" id="KBb-GF-FNC">
-                    <rect key="frame" x="251" y="488" width="60" height="60"/>
+                    <frame key="frameInset" minX="251" minY="488" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="KBb-GF-FNC" secondAttribute="height" multiplier="1:1" id="vvT-vX-cjV"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="创业圈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bOZ-fN-1is">
-                    <rect key="frame" x="249" y="556" width="53" height="25"/>
+                    <frame key="frameInset" minX="249" minY="556" width="53" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ad-yO-pz4" userLabel="Occupation Button">
-                    <rect key="frame" x="187" y="446" width="188" height="187"/>
+                    <frame key="frameInset" minX="187" minY="446" width="188" height="187"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="187" id="HMX-9v-Wzq"/>
                         <constraint firstAttribute="width" constant="187.5" id="RDe-bL-ZXu"/>
@@ -153,16 +154,16 @@
                     </connections>
                 </button>
                 <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PoN-dH-wAm">
-                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <frame key="frameInset" minY="20" width="375" height="44"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="375" id="RbR-tB-ZCX"/>
                         <constraint firstAttribute="width" secondItem="PoN-dH-wAm" secondAttribute="height" multiplier="375:44" id="UVA-gb-dmN"/>
                         <constraint firstAttribute="height" constant="65" id="aAh-rG-iiO"/>
                         <constraint firstAttribute="width" secondItem="PoN-dH-wAm" secondAttribute="height" multiplier="375:44" id="roe-qk-68W"/>
                     </constraints>
-                    <color key="barTintColor" red="0.26274509800000001" green="0.81176470590000005" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.26274509800000001" green="0.81176470590000005" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <textAttributes key="titleTextAttributes">
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </textAttributes>
                     <items>
                         <navigationItem title="发现圈子" id="Wsd-2E-QCu"/>
@@ -174,7 +175,7 @@
                     </variation>
                 </navigationBar>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6Y-bs-IDM" userLabel="factul Button">
-                    <rect key="frame" x="0.0" y="64" width="188" height="187"/>
+                    <frame key="frameInset" minY="64" width="188" height="187"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="a6Y-bs-IDM" secondAttribute="height" multiplier="1:1" id="52M-12-WG6"/>
                         <constraint firstAttribute="width" constant="187.5" id="Ouz-Y0-EaZ"/>
@@ -188,13 +189,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="社团圈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLC-rf-M8z">
-                    <rect key="frame" x="247" y="176" width="53" height="26"/>
+                    <frame key="frameInset" minX="247" minY="176" width="53" height="26"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ns-1c-Fxa">
-                    <rect key="frame" x="188" y="259" width="188" height="187"/>
+                    <frame key="frameInset" minX="188" minY="259" width="188" height="187"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2ns-1c-Fxa" secondAttribute="height" multiplier="1:1" id="HXj-7q-cOl"/>
                         <constraint firstAttribute="width" secondItem="2ns-1c-Fxa" secondAttribute="height" multiplier="1:1" id="cej-4q-Bzt"/>
@@ -209,7 +210,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="9gf-aO-yMa" firstAttribute="leading" secondItem="a6Y-bs-IDM" secondAttribute="trailing" constant="59.5" id="0jF-7M-0dE"/>
                 <constraint firstItem="2ns-1c-Fxa" firstAttribute="width" secondItem="a6Y-bs-IDM" secondAttribute="width" id="18E-Cs-At9"/>
@@ -287,7 +288,6 @@
                 <constraint firstItem="G0m-Is-7V7" firstAttribute="top" secondItem="DoA-Mq-AaY" secondAttribute="bottom" constant="12" id="z0q-MP-tFl"/>
                 <constraint firstItem="qdM-Hy-Aow" firstAttribute="leading" secondItem="eGh-QY-pL8" secondAttribute="trailing" constant="59.5" id="zzz-eK-VzP"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="hUB-bz-Ou8"/>
@@ -304,11 +304,11 @@
         </view>
     </objects>
     <resources>
-        <image name="创业圈" width="110" height="111"/>
-        <image name="实习圈" width="110" height="109"/>
-        <image name="法律圈" width="112" height="106"/>
-        <image name="电气圈" width="80" height="80"/>
-        <image name="经管圈" width="94" height="93"/>
-        <image name="软件圈" width="123" height="93"/>
+        <image name="创业圈" width="55" height="55"/>
+        <image name="实习圈" width="55" height="54"/>
+        <image name="法律圈" width="56" height="53"/>
+        <image name="电气圈" width="40" height="40"/>
+        <image name="经管圈" width="47" height="46"/>
+        <image name="软件圈" width="61" height="46"/>
     </resources>
 </document>

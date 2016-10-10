@@ -141,7 +141,7 @@
     
     //时间戳
     self.timeLabel.text = circleGroup.time;
-    NSLog(@"PLLLLLLL%@",[circleGroup.replys objectAtIndex:1]);
+    NSLog(@"PLLLLLLL%@",[circleGroup.replys objectAtIndex:0]);
     //创建评论
     for (int i = 0; i < [circleGroup.replys count]; i++) {
         UILabel *replyLabel = [[UILabel alloc]init];

@@ -53,7 +53,6 @@
     [self creatModelsWithCount:4 page:i];
     
     __weak typeof(self) weakSelf = self;
-    
     // 上拉加载
     _refreshFooter = [SDRefreshFooterView refreshView];
     [_refreshFooter addToScrollView:self.tableView];
@@ -81,7 +80,7 @@
 
 - (void)creatModelsWithCount:(NSInteger)count page:(NSNumber *) pages
 {
-    
+    __weak typeof(self) weakSelf = self;
     if (!_modelsArray) {
         _modelsArray = [NSMutableArray new];
     }
@@ -96,6 +95,7 @@
         DemoVC5Model *mod = [DemoVC5Model modelWithDict:dict page:pages ID:[circleDeatilVC getIDinList]];
         [self.modelsArray  addObject:mod];
     }
+    [weakSelf.tableView reloadData];
     extern int pageoflist;
     [SecondViewController setPageAdd1];
   
