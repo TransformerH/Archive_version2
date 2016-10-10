@@ -47,8 +47,7 @@
     
     
     self.commentArray = [MessageViewModel commentListFromPlist];
- //   NSLog(@"评论列表count  %lu",(long)[MessageViewModel commentListFromPlist].count);
-    
+    NSLog(@"评论列表count  %lu",(long)[MessageViewModel commentListFromPlist].count);
     
 }
 
@@ -60,11 +59,18 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    self.commentArray = [MessageViewModel commentListFromPlist];
     return self.commentArray.count;
 }
 
 
 - (CommentTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    self.commentArray = [MessageViewModel commentListFromPlist];
+    
+    NSLog(@"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%评论列表的第一个  %@",self.commentArray[0]);
+    
     CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell" forIndexPath:indexPath];
     
     NSLog(@"评论的cell");

@@ -34,6 +34,7 @@
         self.dataArray = [MessageViewModel messageListFromPlist];
         
         NSLog(@"messageTableView的dataArray 的元素个数: %lu",(unsigned long)self.dataArray.count);
+        NSLog(@"messagetableView的dataArray的第一个:%@",self.dataArray[0]);
         
     } AFNErrorBlock:^(NSError *error) {
         NSLog(@"获取消息列表失败");
@@ -55,43 +56,48 @@
 
 - (SystemMessageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.dataArray = [MessageViewModel messageListFromPlist];
     SystemMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-  //  cell.textLabel.font = [UIFont systemFontOfSize:17];
-//    for(int i = 0;i < self.dataArray.count;i++){
+    NSInteger type = [[self.dataArray[indexPath.row] valueForKey:@"type"]integerValue];
     
-    NSLog(@"消息列表的类型输出: %d",[[self.dataArray[indexPath.row] valueForKey:@"type"] intValue]);
+    NSLog(@"消息界面：圈子的头像 %@",[[self.dataArray[indexPath.row] valueForKey:@"message"]valueForKey:@"circle_url"]);
     
-        switch ([[self.dataArray[indexPath.row] valueForKey:@"type"] intValue]) {
+        switch (type) {
             case 0:{
-                cell.circleURL = @"http://pic.58pic.com/58pic/15/65/94/75558PICQEi_1024.jpg";
+                cell.circleURL = [[self.dataArray[indexPath.row] valueForKey:@"message"]valueForKey:@"circle_url"];
                 cell.messageName = @"圈子通知";
-                cell.messageContent = [NSString stringWithFormat:@"您申请创建的圈子 %@ 已通过审核",[[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"]];
-                cell.updateTime = [self.dataArray[indexPath.row][indexPath.row] valueForKey:@"update_time"];
+                cell.messageContent = [NSString stringWithFormat:@"您申请创建的圈子 %@ 已通过审核",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"]];
+                cell.updateTime = [self.dataArray[indexPath.row] valueForKey:@"update_time"];
                 break;
             }
             case 1:{
                 cell.circleURL = [[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_url"];
                 cell.messageName = @"圈子通知";
-                cell.messageContent = [NSString stringWithFormat:@"您申请创建的圈子 %@ 未通过审核",[[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"]];
+                cell.messageContent = [NSString stringWithFormat:@"您申请创建的圈子 %@ 未通过审核",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"]];
                 cell.updateTime = [self.dataArray[indexPath.row] valueForKey:@"update_time"];
                 break;
             }
             case 2:{
-                cell.circleURL = [[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_url"];
+                cell.circleURL = [[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_url"];
                 cell.messageName = @"圈子通知";
-                cell.messageContent = [NSString stringWithFormat:@"%@已加入",[[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"apply_name"]];
-                cell.updateTime = [NSString stringWithFormat:@"%@ | %@",[[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"],[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"update_time"]];
+                cell.messageContent = [NSString stringWithFormat:@"%@已加入",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"apply_name"]];
+                cell.updateTime = [NSString stringWithFormat:@"%@ | %@",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"],[self.dataArray[indexPath.row] valueForKey:@"update_time"]];
                 break;
             }
             case 3:{
-                cell.circleURL = @"http://pic2.ooopic.com/11/75/82/72b1OOOPIC1e.jpg";
+                cell.circleURL = [[self.dataArray[indexPath.row] valueForKey:@"message"]valueForKey:@"circle_url"];
                 cell.messageName = @"圈子通知";
-                cell.messageContent = [[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"result"];
-                cell.updateTime = [NSString stringWithFormat:@"%@ | %@",[[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"],[self.dataArray[indexPath.row][indexPath.row] valueForKey:@"update_time"]];
+                if([[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"result"] integerValue] == 1){
+                    cell.messageContent = @"您的申请已通过审核";
+                }else{
+                    cell.messageContent = @"您的申请未通过审核";
+                }
+               // cell.messageContent = [[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"result"];
+                cell.updateTime = [NSString stringWithFormat:@"%@ | %@",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"],[self.dataArray[indexPath.row] valueForKey:@"update_time"]];
                 break;
             }
             case 4:{
-                cell.circleURL = @"http://pic2.ooopic.com/11/75/82/72b1OOOPIC1e.jpg";
+                cell.circleURL = [[self.dataArray[indexPath.row] valueForKey:@"message"]valueForKey:@"circle_url"];
                 cell.messageName = @"圈子通知";
                 cell.messageContent = [NSString stringWithFormat:@"%@申请加入%@",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"apply_name"],[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"]];
                 cell.updateTime = [NSString stringWithFormat:@"%@ | %@",[[self.dataArray[indexPath.row] valueForKey:@"message"] valueForKey:@"circle_name"],[self.dataArray[indexPath.row] valueForKey:@"update_time"]];

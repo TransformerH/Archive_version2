@@ -21,24 +21,29 @@
                         <frame key="frameInset" minX="-64" minY="-42" width="62" height="56"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="I9d-M0-9lW">
-                        <frame key="frameInset" minX="20" minY="30" width="70" height="70"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4df-J4-6si">
-                        <frame key="frameInset" minX="150" minY="54" width="98" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4df-J4-6si">
                         <constraints>
-                            <constraint firstAttribute="width" constant="98" id="YPi-Oc-zYn"/>
-                            <constraint firstAttribute="width" secondItem="4df-J4-6si" secondAttribute="height" multiplier="14:3" id="cp9-Zr-M3u"/>
+                            <constraint firstAttribute="width" secondItem="4df-J4-6si" secondAttribute="height" multiplier="146:21" id="Anl-Rv-lEM"/>
+                            <constraint firstAttribute="width" constant="146" id="QJq-77-CQa"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="I9d-M0-9lW">
+                        <frame key="frameInset" minX="46" minY="37" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="I9d-M0-9lW" secondAttribute="height" multiplier="1:1" id="9ys-ZA-Zfy"/>
+                            <constraint firstAttribute="width" constant="70" id="qpm-VJ-f9M"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="4df-J4-6si" secondAttribute="bottom" constant="46" id="3IM-ov-rWX"/>
-                    <constraint firstItem="4df-J4-6si" firstAttribute="leading" secondItem="I9d-M0-9lW" secondAttribute="trailing" constant="60" id="MEI-Hl-7S2"/>
-                    <constraint firstItem="4df-J4-6si" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="46" id="MU0-uv-01K"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4df-J4-6si" secondAttribute="bottom" constant="63" id="GZI-GY-bsJ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="I9d-M0-9lW" secondAttribute="bottom" constant="3" id="Vun-xc-cMJ"/>
+                    <constraint firstItem="4df-J4-6si" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="29" id="WoT-Mb-iNp"/>
+                    <constraint firstItem="4df-J4-6si" firstAttribute="leading" secondItem="I9d-M0-9lW" secondAttribute="trailing" constant="43" id="Yf4-LI-kvH"/>
+                    <constraint firstItem="I9d-M0-9lW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="41" id="dHe-oW-bG5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -45,14 +45,11 @@
     
         _circleURL = circleURL;
         
-       UIImage *circleImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_circleURL]]];
-//        [self.messageImg  sd_setImageWithURL:[NSURL URLWithString:_circleURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                [self.messageImg setImage:[self OriginImage:image scaleToSize:self.messageImg.bounds.size]];
-//            }];
+//       UIImage *circleImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_circleURL]]];
+       [self.messageImg sd_setImageWithURL:[NSURL URLWithString:_circleURL]];
 
-        [self.messageImg setImage:[self OriginImage:circleImg scaleToSize:self.messageImg.bounds.size]];
         self.messageImg.layer.masksToBounds = YES;
-        self.messageImg.layer.cornerRadius = self.messageImg.bounds.size.width / 2.0;
+        self.messageImg.layer.cornerRadius = self.messageImg.frame.size.width / 2.0;
 }
 - (void)setMessageContent:(NSString *)messageContent{
 //    if(![_messageContent isEqualToString:messageContent]){

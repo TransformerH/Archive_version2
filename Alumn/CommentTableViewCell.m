@@ -48,7 +48,7 @@
 - (void)setImgUrl:(NSString *)imgUrl{
     _imgUrl = [imgUrl copy];
   //  UIImage *circleImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imgUrl]]];
-    [self.commentImg sd_setImageWithURL:_imgUrl];
+    [self.commentImg sd_setImageWithURL:[NSURL URLWithString:_imgUrl]];
 //    [self.commentImg setImage:[self OriginImage:circleImg scaleToSize:self.commentImg.bounds.size]];
     self.commentImg.layer.masksToBounds = YES;
     self.commentImg.layer.cornerRadius = self.commentImg.bounds.size.width / 2.0;

@@ -178,9 +178,9 @@
         userHead.layer.cornerRadius = userHead.bounds.size.width / 2.0;
         
         
-        UIButton *chooseBtn = [[UIButton alloc] init];
-        chooseBtn.frame = CGRectMake((userHead.frame.origin.x + userHead.frame.size.width / 2), (userHead.frame.origin.y + userHead.frame.size.height * 0.5), 60, 60);
-        [chooseBtn setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"photoImg"] scaleToSize:chooseBtn.frame.size] forState:UIControlStateNormal];
+//        UIButton *chooseBtn = [[UIButton alloc] init];
+//        chooseBtn.frame = CGRectMake((userHead.frame.origin.x + userHead.frame.size.width / 2), (userHead.frame.origin.y + userHead.frame.size.height * 0.5), 60, 60);
+//        [chooseBtn setBackgroundImage:[self OriginImage:[UIImage imageNamed:@"photoImg"] scaleToSize:chooseBtn.frame.size] forState:UIControlStateNormal];
         
 //        //setButton
 //        UIButton *setButton = [[UIButton alloc] init];
@@ -191,7 +191,7 @@
         
         [backImgView addSubview:userImg];
         [backImgView addSubview:userHead];
-        [backImgView addSubview:chooseBtn];
+//        [backImgView addSubview:chooseBtn];
      //   [backImgView addSubview:setButton];
         
         
