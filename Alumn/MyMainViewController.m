@@ -698,34 +698,8 @@
     
 }
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    
-//    self.meVM = [[MeViewModel alloc] init];
-//    
-//    
-//    [User MyAdminCirlceIntroduceWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-//        NSLog(@"获得加入的圈子列表 : %@",dict);
-//        [self.meVM getMyAdminCircleList:[dict valueForKey:@"Data"]];
-//    } AFNErrorBlock:^(NSError *error) {
-//        NSLog(@"获得失败，加入的圈子");
-//    }];
-//    
-//    [User MyCreateCirlceIntroduceWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-//        NSLog(@"获得创建的圈子列表: %@",dict);
-//        [self.meVM getMyCreateCircleList:[dict valueForKey:@"Data"]];
-//    } AFNErrorBlock:^(NSError *error) {
-//        NSLog(@"获得失败，创建的圈子");
-//    }];
-//    
-//    [User CardWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
-//        NSLog(@"获得收藏的Cards :%@",dict);
-//        [self.meVM getMyCardsList:[dict valueForKey:@"Data"]];
-//    } AFNErrorBlock:^(NSError *error) {
-//        NSLog(@"获得失败，收藏的Cards");
-//    }];
-//    
-//}
-//
+//-------------------  tableViewDelegate
+
 
 
 @end
