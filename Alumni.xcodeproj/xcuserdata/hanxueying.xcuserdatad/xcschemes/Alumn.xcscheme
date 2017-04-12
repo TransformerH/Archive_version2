@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AB0F9D31D644B510098CEDF"
-               BuildableName = "Alumn.app"
-               BlueprintName = "Alumn"
-               ReferencedContainer = "container:Alumn.xcodeproj">
+               BuildableName = "Alumni.app"
+               BlueprintName = "Alumni"
+               ReferencedContainer = "container:Alumni.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7AB0F9EC1D644B510098CEDF"
-               BuildableName = "AlumnUITests.xctest"
-               BlueprintName = "AlumnUITests"
-               ReferencedContainer = "container:Alumn.xcodeproj">
+               BuildableName = "AlumniUITests.xctest"
+               BlueprintName = "AlumniUITests"
+               ReferencedContainer = "container:Alumni.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7AB0F9D31D644B510098CEDF"
-            BuildableName = "Alumn.app"
-            BlueprintName = "Alumn"
-            ReferencedContainer = "container:Alumn.xcodeproj">
+            BuildableName = "Alumni.app"
+            BlueprintName = "Alumni"
+            ReferencedContainer = "container:Alumni.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7AB0F9D31D644B510098CEDF"
-            BuildableName = "Alumn.app"
-            BlueprintName = "Alumn"
-            ReferencedContainer = "container:Alumn.xcodeproj">
+            BuildableName = "Alumni.app"
+            BlueprintName = "Alumni"
+            ReferencedContainer = "container:Alumni.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7AB0F9D31D644B510098CEDF"
-            BuildableName = "Alumn.app"
-            BlueprintName = "Alumn"
-            ReferencedContainer = "container:Alumn.xcodeproj">
+            BuildableName = "Alumni.app"
+            BlueprintName = "Alumni"
+            ReferencedContainer = "container:Alumni.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

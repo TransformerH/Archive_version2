@@ -89,6 +89,9 @@ NSString * const CellIdentifier = @"CellIdentifier";
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    NSLog(@"********************************************************点击的是动态详情嘛？");
+    
     UITouch *touch = [touches anyObject];
     UIView *view = (UIView *)[touch view];
         [self.tableView setHidden:true];

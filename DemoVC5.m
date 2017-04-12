@@ -132,6 +132,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    NSLog(@"-------------------------------------------------我应该是找到了");
+    
     //该方法响应列表中行的点击事件
      DemoVC5CellTableViewCell *cell = [[DemoVC5CellTableViewCell alloc]init];
     

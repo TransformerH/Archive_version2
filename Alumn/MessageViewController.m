@@ -30,6 +30,23 @@
 #import "ApplyMessageVC.h"
 #import "SystemMessageVC.h"
 
+#import "CommentsDetailVC.h"
+#import "CircleViewController.h"
+
+
+
+// 点击查看动态详情
+#import "DemoVC5.h"
+#import "DemoVC5CellTableViewCell.h"
+#import "SDRefresh.h"
+#import "UITableView+SDAutoTableViewCellHeight.h"
+#import "CircleViewController.h"
+#import "Circle+Extension.h"
+#import "AFNetManager.h"
+#import "circleDeatilVC.h"
+#import "SecondViewController.h"
+#import "Circle+Extension.h"
+
 @interface MessageViewController ()<UIScrollViewDelegate,UITableViewDelegate>
 {
     CGFloat _lastPosition;
@@ -59,6 +76,11 @@
 @property(nonatomic,assign)UIView * contentViewRightView;
 @property(nonatomic,assign)UIView * contentViewCurrentView;
 
+
+
+@property (nonatomic, strong) NSMutableArray *modelsArray;
+
+
 @end
 
 @implementation MessageViewController
@@ -82,7 +104,7 @@
 {
     _contableTableViewArray = [[NSMutableArray alloc]init];
     [self.view addSubview:self.bottomScrollView];
-    //    [self.bottomScrollView addSubview:self.headScrollView];
+//        [self.bottomScrollView addSubview:self.headScrollView];
     [self.bottomScrollView addSubview:self.headMenuScrollView];
     [self.bottomScrollView addSubview:self.contentScrollView];
 }
@@ -612,20 +634,35 @@
         
     }else{
         NSArray *commentData = [MessageViewModel commentListFromPlist];
-        commentName = [[[commentData[indexPath.row] valueForKey:@"creator"] valueForKey:@"name"] substringFromIndex:11];
-        content = [commentData[indexPath.row] valueForKey:@"content"];
-        title = [NSString stringWithFormat:@"%@评论了您的动态",commentName];
-        time = [commentData[indexPath.row] valueForKey:@"create_time"];
-        message = [NSString stringWithFormat:@"时间:%@\n评论:%@",time,content];
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"消息详情确认");
-        }];
-        [alertController addAction:cancleAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        NSDictionary *currentDic = commentData[indexPath.row];
+        
+        //  将点击的comment的数据写入单独的currentComment.plist中
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *plistPath= [paths objectAtIndex:0];
+        
+        NSLog(@"%@",plistPath);
+        //得到完整的路径名
+        NSString *fileName = [plistPath stringByAppendingPathComponent:@"currentComment.plist"];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
+            
+            [currentDic writeToFile:fileName atomically:YES];
+            NSLog(@"currentComment.plist文件写入完成");
+            
+        }
+        CommentsDetailVC *cdVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"CommentDetailVC"];
+        [self.navigationController pushViewController:cdVC  animated:YES];
+        
+//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//         CommentDetailReVC *VC = [sb instantiateViewControllerWithIdentifier:@"cdVC"];
+        
+        
+//        [self showViewController:VC sender:nil];
 
-    }
     
+    }
+
+   
     
 }
 

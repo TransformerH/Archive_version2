@@ -44,6 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+      NSLog(@"**************************#####################");
+    
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:NO];
     [self.circleTableView   setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -90,6 +93,9 @@
     [cell.likeButton addTarget:self action:@selector(likeButtonCliked:) forControlEvents:UIControlEventTouchUpInside];
     cell.replyButton.tag = indexPath.row;   //评论时可以知道加到第几行
     cell.imageBlock = ^(NSArray *imageViews, NSInteger clickTag) {
+        
+        NSLog(@"------------------------------------------------------我是找见了吗？");
+        
         self.navigationController.navigationBarHidden = YES;
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         ShowImageViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ShowImage"];

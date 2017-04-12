@@ -9,6 +9,10 @@
 #import "CardCell.h"
 #import "View+MASAdditions.h"
 #import   "UIImageView+WebCache.h"
+#import "User.h"
+#import "User+Extension.h"
+
+#import "MeInfoViewModel.h"
 
 @interface CardCell()
 
@@ -17,6 +21,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *majorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *classLabel;
 @property (strong, nonatomic) IBOutlet UILabel *jobLabel;
+
+
+@property (strong,nonatomic)MeInfoViewModel *meInfoVM;
 
 
 
@@ -32,7 +39,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
 }
 
 - (void)setName:(NSString *)name{

@@ -631,8 +631,20 @@ uplpadSuccess(picUrls,YES);
         NSLog(@"更新个人资料失败 ：%@",error);
         afnErrorblock(error);
     }];
-
+    
 }
-
++ (void)feedDetailsWithParameters :(NSDictionary *) parm SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock{
+    NSString *checkApplyURL = [[NSString alloc] initWithFormat:@"%@/feed_detail",[AFNetManager getMainURL]];
+    
+    [[AFNetManager manager] POST:checkApplyURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+       
+        successBlock(dic,YES);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       
+        afnErrorblock(error);
+    }];
+    
+}
 
 @end

@@ -18,7 +18,7 @@ static Circle *circle;
     static dispatch_once_t dec;
     
     dispatch_once(&dec, ^{
-       circle  = [[Circle alloc] init];
+        circle  = [[Circle alloc] init];
         //   xrsf = [[NSString alloc] init];
     });
     
@@ -44,7 +44,7 @@ static Circle *circle;
         NSDictionary *main = [dic objectForKey:@"Data"];
         NSDictionary *result = [main objectForKey:@"response"];
         NSDictionary *mainCilrcle = [result objectForKey:@"results"];
-            NSFileManager *fm = [NSFileManager defaultManager];
+        NSFileManager *fm = [NSFileManager defaultManager];
         if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
             
             [mainCilrcle writeToFile:fileName atomically:YES];
@@ -58,7 +58,7 @@ static Circle *circle;
         
     }];
     
- 
+    
 }
 //获得分类里的圈子列表 名字，简介，图片等
 +(void) circleIndexWithParameters :(NSDictionary *) parm
@@ -90,7 +90,7 @@ static Circle *circle;
 //获得某个类型的圈子列表
 +(void) getTypetopicWithParameters :(NSDictionary *) parm ID:(NSString *)Type_id SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock
 {
-      NSString *getFirstURL = [NSString stringWithFormat:@"%@/gettypetopic",[AFNetManager getMainURL]];
+    NSString *getFirstURL = [NSString stringWithFormat:@"%@/gettypetopic",[AFNetManager getMainURL]];
     [[AFNetManager manager] POST:getFirstURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
@@ -115,8 +115,8 @@ static Circle *circle;
         
     }];
     
-
- 
+    
+    
 }
 
 //获得圈子详情
@@ -133,7 +133,7 @@ static Circle *circle;
         NSLog(@"getxsrf failure");
         
     }];
-
+    
     
 }
 
@@ -141,14 +141,14 @@ static Circle *circle;
 +(void) circeDynamicListWithParameters:(NSDictionary *)parm page:(NSNumber *) pages SuccessBlock:(SuccessBlock)successBlock AFNErrorBlock:(AFNErrorBlock) afnErrorblock
 {
     //得到完整的路径名
-//    BOOL flag =false;
+    //    BOOL flag =false;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *plistPath1= [paths objectAtIndex:0];
     NSString *plistName =[[NSString alloc] initWithFormat:@"DynamicList%@_Page%@.plist",[circleDeatilVC getIDinList],pages];
     NSString *fileName = [plistPath1 stringByAppendingPathComponent:plistName];
-   
+    
     NSFileManager *fm = [NSFileManager defaultManager];
-
+    
     NSString *getFirstURL = [NSString stringWithFormat:@"%@/circle_feed",[AFNetManager getMainURL]];
     [[AFNetManager manager] POST:getFirstURL parameters:parm progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject){
         
@@ -161,24 +161,24 @@ static Circle *circle;
         NSDictionary *main = [dic objectForKey:@"Data"];
         NSDictionary *result = [main objectForKey:@"response"];
         NSDictionary *list = [result objectForKey:@"results"];
-
+        
         if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
             [list writeToFile:fileName atomically:YES];
-                        NSLog(@"文件写入完成");
+            NSLog(@"文件写入完成");
             successBlock(dic,YES);
-           
+            
         }
         
-       
-
-
+        
+        
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
         
         NSLog(@"getxsrf failure");
         
     }];
     // flag=true;
-//}
+    //}
     
 }
 
@@ -217,15 +217,15 @@ static Circle *circle;
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
         //NSLog(@"circle deatil: %@", responseObject);
-    NSLog(@"circle deatil: %@", dic);
-            
-        }
-     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
+        NSLog(@"circle deatil: %@", dic);
         
-        NSLog(@"getxsrf failure");
-        
-    }];
-
+    }
+                         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
+                             
+                             NSLog(@"getxsrf failure");
+                             
+                         }];
+    
 }
 
 //获取评论列表
@@ -253,7 +253,7 @@ static Circle *circle;
             [mainComment writeToFile:fileName atomically:YES];
             NSLog(@"文件写入完成");
         }
-
+        
         
         successBlock(dic,YES);
         
@@ -263,7 +263,7 @@ static Circle *circle;
                              NSLog(@"getxsrf failure");
                              
                          }];
-
+    
     
 }
 
@@ -279,7 +279,7 @@ static Circle *circle;
     }
                          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
                              
-                             NSLog(@"getxsrf failure");
+                             NSLog(@"pubcommentWithParameters--getxsrf failure");
                              
                          }];
     

@@ -13,10 +13,13 @@
 #import "User.h"
 #import "User+Extension.h"
 
+#import "MeInfoViewModel.h"
+
 
 @interface CardTableViewController ()
 
 @property (nonatomic,strong)MeViewModel *meVM;
+@property (strong,nonatomic)MeInfoViewModel *meInfoVM;
 
 @end
 
@@ -24,18 +27,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+ 
+    self.meInfoVM = [MeInfoViewModel getMeInfoVM];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     UINib *nib = [UINib nibWithNibName:@"CardCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"card"];
     self.tableView.tableFooterView = [[UIView alloc]init];
     
+    self.tableView.delegate = self;
+    
     self.tableView.rowHeight = 116;
+    
+    self.tableView.userInteractionEnabled = YES;
     
     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  防止IOS自动释放self
     __typeof (self) __weak weakSelf = self;
@@ -87,6 +91,9 @@
     CardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"card" forIndexPath:indexPath];
     //    if(![[[MeViewModel collectCardsFromPlist][indexPath.row] valueForKey:@"source_uid"] isEqualToString:[[NSString alloc] initWithFormat: @"%d",-1]]){
     if([MeViewModel collectCardsFromPlist].count > 0){
+        
+        NSLog(@"******************************??????????????????????????????????  这是啥 %@",[MeViewModel collectCardsFromPlist][indexPath.row]);
+        
         cell.name = [[MeViewModel collectCardsFromPlist][indexPath.row] valueForKey:@"name"];
         cell.major =[[[MeViewModel collectCardsFromPlist][indexPath.row] valueForKey:@"custom"] valueForKey:@"fa"];
         cell.classNum =[[[MeViewModel collectCardsFromPlist][indexPath.row] valueForKey:@"custom"] valueForKey:@"ma"];
@@ -102,60 +109,5 @@
     //    }
     return cell;
 }
-
-
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

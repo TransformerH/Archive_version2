@@ -24,12 +24,17 @@
 #import "LoginViewController.h"
 
 
+#import "MeInfoViewModel.h"
+#import "MeInfoViewController.h"
+
+
 @interface MyMainViewController ()<UIScrollViewDelegate,UITableViewDelegate>
 {
     CGFloat _lastPosition;
 }
 
 @property (nonatomic,strong)MeViewModel *meVM;
+@property (strong,nonatomic)MeInfoViewModel *meInfoVM;
 
 
 //框架最下面的scrollView;
@@ -73,9 +78,11 @@
     
     
     self.meVM = [[MeViewModel alloc] init];
+    self.meInfoVM = [MeInfoViewModel getMeInfoVM];
     
     
-
+    
+    
     
     [User MyAdminCirlceIntroduceWithParameters:nil SuccessBlock:^(NSDictionary *dict, BOOL success) {
         NSLog(@"获得加入的圈子列表 : %@",dict);
@@ -138,14 +145,14 @@
         
         [self dismissViewControllerAnimated:YES completion:nil];
         LoginViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
-        //  [self presentViewController:loginVC animated:YES completion:nil];
+        [self presentViewController:loginVC animated:YES completion:nil];
         [self.navigationController pushViewController:loginVC animated:YES];
         
         NSString *DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager]enumeratorAtPath:DocumentsPath];
         for(NSString *fileName in enumerator){
             [
-            [NSFileManager defaultManager] removeItemAtPath:[DocumentsPath stringByAppendingPathComponent:fileName] error:nil];
+             [NSFileManager defaultManager] removeItemAtPath:[DocumentsPath stringByAppendingPathComponent:fileName] error:nil];
         }
         
         NSLog(@"退出成功");
@@ -158,7 +165,7 @@
 {
     if (!_bottomScrollView) {
         _bottomScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds))];
-        _bottomScrollView.delegate = self;
+        //        _bottomScrollView.delegate = self;
         _bottomScrollView.backgroundColor = [UIColor whiteColor];
         [_bottomScrollView.layer setBorderWidth:1];
         _bottomScrollView.showsHorizontalScrollIndicator = NO;
@@ -298,6 +305,7 @@
 {
     if (!_contentScrollView) {
         _contentScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.headMenuScrollView.frame), CGRectGetWidth([UIScreen mainScreen].bounds), self.bottomScrollView.bounds.size.height - self.headMenuScrollView.bounds.size.height)];
+        
         _contentScrollView.backgroundColor = [UIColor clearColor];
         _contentScrollView.delegate = self;
         _contentScrollView.bounces = NO;
@@ -786,9 +794,56 @@
 //    } AFNErrorBlock:^(NSError *error) {
 //        NSLog(@"获得失败，收藏的Cards");
 //    }];
-//    
+//
 //}
 //
+
+
+#pragma mark -- tableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(_currentSeletedHeadScrollViewSubButtonNumberTag == 0){
+        NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~收藏的名片显示");
+        NSDictionary *personalRequest = [[NSDictionary alloc] initWithObjectsAndKeys:[User getXrsf],@"_xsrf",[[[MeViewModel collectCardsFromPlist][indexPath.row] valueForKey:@"custom"] valueForKey:@"uid"],@"uid", nil];
+        
+        [User getPersonalInfo:personalRequest SuccessBlock:^(NSDictionary *dict, BOOL success) {
+            
+            NSLog(@"获得的具体的人脉详情 %@",dict);
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *plistPath1= [paths objectAtIndex:0];
+            
+            NSLog(@"%@",plistPath1);
+            //得到完整的路径名
+            NSString *fileName = [plistPath1 stringByAppendingPathComponent:@"personalDetailInfoSecond.plist"];
+            NSFileManager *fm = [NSFileManager defaultManager];
+            if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
+                
+                [[dict valueForKey:@"Data"] writeToFile:fileName atomically:YES];
+                NSLog(@"personalDetailInfoSecond.plist文件写入完成");
+            }
+            
+            
+            [self.meInfoVM setIfFollowed:[[[dict valueForKey:@"Data"] valueForKey:@"response"]valueForKey:@"has_followed"]];
+            
+            NSDictionary *sourceDic = [[NSDictionary alloc] initWithObjectsAndKeys:[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"ct" ],@"city", [[[[dict valueForKey:@"Data"]valueForKey:@"response"]valueForKey:@"name"]substringFromIndex:11],@"name",[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"jo" ],@"job",[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"fa" ],@"faculty",@"东南大学",@"company",[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"ma" ],@"major",[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"ay" ],@"admission_year",[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"icon_url"],@"icon_url",nil];
+            
+            NSDictionary *meInfoDic = [[NSDictionary alloc] initWithObjectsAndKeys:sourceDic,@"_source",[[[[dict valueForKey:@"Data"] valueForKey:@"response"] valueForKey:@"custom"]valueForKey:@"uid"],@"_id", nil];
+            
+            
+            [self.meInfoVM setInfo:meInfoDic];
+            
+            
+            MeInfoViewController *meInfoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"meInfo"];
+            [self.navigationController pushViewController:meInfoVC animated:YES];
+            
+        } AFNErrorBlock:^(NSError *error) {
+            NSLog(@"获得某个人脉详情失败，此处应加一个弹窗显示");
+        }];
+        
+    }
+}
+
 
 
 @end
